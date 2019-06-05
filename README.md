@@ -16,11 +16,11 @@
 > - Would try to include as many portfolio sites as possible
 >
 
-# Your Profile
+### Your Profile
 ![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/AnshulGarg-LinkedIn-GitHubGraph.png)
-# New Person's Profile
+### New Profile
 ![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/ShubhamDhama-LinkedIn-GitHubGraph.png)
-# Connection's Profile
+### Connection's Profile
 ![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/AnirudhDagar-LinkedIn-GitHubGraph.png)
 
 
