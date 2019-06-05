@@ -13,15 +13,16 @@
 
 ## :cloud: Installation
 
-Clone the repository
-Open the Chorme Extension Developers option
-Type the following code into the Chrome / Chromiun Browser URL
+[x] Clone the repository
+[x] Open the Chorme Extension Developers option
+ - Type the following code into the Chrome / Chromiun Browser URL
 ```shell
 chrome://extension
 ```
-Click on 'Load Unpacked Package'
-Select the location of the Repo
-Run LinkedIn Enjoy
+[x] Click on 'Load Unpacked Package'
+[x] Select the location of the Repo
+[x] Goto LinkedIn Homepage
+[x] Enjoy :joy:
 
 Thanks! :heart:
 
