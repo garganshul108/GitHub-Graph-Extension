@@ -6,9 +6,9 @@
 
 > Embed your GitHub contributions onto your LinkedIn Profile.
 
-![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/new/proto1.0/screenshots/AnshulGarg-LinkedIn-GitHubGraph.png)
-![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/new/proto1.0/screenshots/ShubhamDhama-LinkedIn-GitHubGraph.png)
-![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/new/proto1.0/screenshots/AnirudhDagar-LinkedIn-GitHubGraph.png)
+![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/AnshulGarg-LinkedIn-GitHubGraph.png)
+![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/ShubhamDhama-LinkedIn-GitHubGraph.png)
+![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/AnirudhDagar-LinkedIn-GitHubGraph.png)
 
 
 ## :cloud: Installation
