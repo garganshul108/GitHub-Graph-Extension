@@ -14,8 +14,8 @@
             ],
 
             "js" : [
-                "foreground.js",
-                "github-calender.min.js"
+                "./github-calender.min.js",
+                "foreground.js"
             ]
         }
     ],
