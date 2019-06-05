@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+    "name" : "GitHub Graph LinkedIn Extension",
+    "version" : "0.0.1",
+
+    "web_accessible_resources":[
+        "./*.css"
+    ],
+    
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.linkedin.com/in/anshulgargofficial/"
+            ],
+
+            "js" : [
+                "foreground.js",
+                "github-calender.min.js"
+            ]
+        }
+    ],
+
+    "background":{
+        "scripts": [ 
+            "background.js"
+         ]
+    },
+
+    "browser_action":{
+        
+    }
+}
