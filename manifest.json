@@ -4,7 +4,8 @@
     "version" : "0.0.1",
 
     "web_accessible_resources":[
-        "./*.css"
+        "./*.css",
+        "./github-calendar.min.js"
     ],
     
     "content_scripts": [
@@ -24,7 +25,8 @@
             "background.js"
          ]
     },
-
+    "permissions": [ "webNavigation", "*://*/*" ],
+    
     "browser_action":{
         "default_icon": "icon.png"
     }
