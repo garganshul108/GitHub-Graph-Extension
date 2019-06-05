@@ -7,7 +7,7 @@ var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function
 const target = "pv-deferred-area";
 
 console.log("setting target div....");
-let container = document.getElementsByClassName(target)[3];
+let container = document.getElementsByClassName(target)[0];
 console.log("target container ", container);
 
 
