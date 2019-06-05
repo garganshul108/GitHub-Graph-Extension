@@ -34,7 +34,13 @@ chrome://extension
 ```
 - [x] Click on 'Load Unpacked Package'
 - [x] Select the location of the Repo
-- [x] Goto LinkedIn Homepage
+- [x] Goto your LinkedIn Profile Page
+- [x] in the 'About' Section of your profile:
+add the following line to the *very first line*
+```shell
+github@<your_username>
+```
+- [x] Refresh
 - [x] Enjoy :joy:
 
 Thanks! :heart:
