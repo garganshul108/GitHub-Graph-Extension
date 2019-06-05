@@ -34,11 +34,19 @@ chrome://extension
 ```
 - [x] Click on 'Load Unpacked Package'
 - [x] Select the location of the Repo
-- [x] Goto LinkedIn Homepage
+- [x] Goto your LinkedIn Profile Page
+- [x] Edit the 'About' Section of your profile:
+add the following line to the *very first line*
+```shell
+github@<your_username>
+example: github@garganshul108
+```
+- [x] Refresh
 - [x] Enjoy :joy:
 
-Thanks! :heart:
+#### NOTE: The extenstion will work for every page you visit, with profile set correctly at the correct location
 
+Thanks! :heart:
 
 ## :cake: Thanks
   - Big thanks to [**IonicaBizau**](https://github.com/IonicaBizau) for creating the [url](https://github.com/IonicaBizau/github-calendar) project– The githubcalendar.min.js is used to fetch the Github-Graph from the named repository

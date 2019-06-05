@@ -3,6 +3,7 @@ var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function
 
 
 
+// location.reload();
 
 const target = "pv-deferred-area";
 
@@ -11,16 +12,26 @@ let container = document.getElementsByClassName(target)[0];
 console.log("target container ", container);
 
 
-
 // taking the input username from the user
 
-function getUserInput()
+function fetchingUsername()
 {
-    console.log("getUserInput called....");
+    console.log("fetchingUsername called....");
     return new Promise((resolve, reject) => {
-        let promptInput = prompt('Your GitHub Username') || 'garganshul108';
-        console.log("promtInput called....");
-        resolve(promptInput);
+        // const srcDivId = "#oc-about-section>section:nth-child(0)>p:nth-child(0)>span:nth-child(0)";
+        const srcDivId = "#oc-about-section>section>p>span";
+        let srcDiv = document.querySelector(srcDivId);
+        console.log("srcDiv...", srcDiv);
+        let targetString = srcDiv.innerHTML;
+        console.log("target string...", targetString);
+        let checkArray = targetString.split("@");
+        if(checkArray[0] == "github")
+        {
+            resolve(checkArray[1]);
+        }
+        else{
+            reject(new Error("Username not initialized on Profile"));
+        }
     });
 }
 
@@ -39,9 +50,12 @@ let calenderDiv = document.createElement("div");
 
 let username = null;
 
-getUserInput()
+function waitingforEmberJS (){
+    console.log("callR");
+    fetchingUsername()
     .then((name) => { 
-        console.log("username setting....");
+        console.log("Success in fetching the Username");
+        console.log("setting username....");
         username = name; 
         console.log("username: ", username);
         console.log("GitHubCalender called....");
@@ -53,6 +67,10 @@ getUserInput()
         container.appendChild(calenderDiv);
     })
     .catch((err) => console.log(err));
+};
+
+setTimeout(waitingforEmberJS, 2000);
+
 
 
 
