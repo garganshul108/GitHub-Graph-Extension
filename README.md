@@ -7,13 +7,14 @@
 > Embed your GitHub contributions onto your LinkedIn Profile.
 
 > Aim:
-> To bring all the work done by a developer onto one platform
->  - makes the profile beautiful, more complete and strong
+>  - To bring all the work done by a developer onto one platform
+>  - Makes the profile beautiful, more complete and strong
 >  - Recruiters get a chance to have a glance of a person's portfolio at one page
-
+>
 
 > Further Extension:
 > - Would try to include as many portfolio sites as possible
+>
 
 - Your Profile
 ![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/AnshulGarg-LinkedIn-GitHubGraph.png)
