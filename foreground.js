@@ -3,28 +3,13 @@ var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function
 
 
 
+// location.reload();
 
 const target = "pv-deferred-area";
 
 console.log("setting target div....");
 let container = document.getElementsByClassName(target)[0];
 console.log("target container ", container);
-
-// while(container.)
-
-let node = container.parentNode.firstChild;
-
-while ( node ) {
-    if ( node.has !== this && node.nodeType === Node.ELEMENT_NODE ) 
-      result.push( node );
-    node = node.nextElementSibling || node.nextSibling;
-}
-
-
-let srcDiv = document.getElementsByClassName("pv-about-section")[0];
-console.log("srcDiv...", srcDiv);
-let targetString = srcDiv.innerHTML;
-console.log("target string...", targetString);
 
 
 // taking the input username from the user
@@ -34,8 +19,11 @@ function fetchingUsername()
     console.log("fetchingUsername called....");
     return new Promise((resolve, reject) => {
         // const srcDivId = "#oc-about-section>section:nth-child(0)>p:nth-child(0)>span:nth-child(0)";
-        // const srcDivId = "#oc-about-section>section>p>span";
-        
+        const srcDivId = "#oc-about-section>section>p>span";
+        let srcDiv = document.querySelector(srcDivId);
+        console.log("srcDiv...", srcDiv);
+        let targetString = srcDiv.innerHTML;
+        console.log("target string...", targetString);
         let checkArray = targetString.split("@");
         if(checkArray[0] == "github")
         {
@@ -62,7 +50,7 @@ let calenderDiv = document.createElement("div");
 
 let username = null;
 
-document.onload = (function(){
+function waitingforEmberJS (){
     console.log("callR");
     fetchingUsername()
     .then((name) => { 
@@ -79,7 +67,9 @@ document.onload = (function(){
         container.appendChild(calenderDiv);
     })
     .catch((err) => console.log(err));
-})();
+};
+
+setTimeout(waitingforEmberJS, 2000);
 
 
 
