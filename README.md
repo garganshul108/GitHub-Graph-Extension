@@ -3,7 +3,7 @@
 
 # GitHub-Graph-Extension : Proto 1.1
 
-
+@author : [ANSHUL GARG](https://github.com/garganshul108)
 > Embed your GitHub contributions onto your LinkedIn Profile.
 
 > Aim:
