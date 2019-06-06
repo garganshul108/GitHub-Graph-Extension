@@ -1,82 +1,941 @@
-var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(e){if("object"===("undefined"==typeof exports?"undefined":_typeof(exports))&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.GitHubCalendar=e()}}(function(){return function(){function e(t,r,n){function a(s,u){if(!r[s]){if(!t[s]){var i="function"==typeof require&&require;if(!u&&i)return i(s,!0);if(o)return o(s,!0);var c=new Error("Cannot find module '"+s+"'");throw c.code="MODULE_NOT_FOUND",c}var l=r[s]={exports:{}};t[s][0].call(l.exports,function(e){var r=t[s][1][e];return a(r||e)},l,l.exports,e,t,r,n)}return r[s].exports}for(var o="function"==typeof require&&require,s=0;s<n.length;s++)a(n[s]);return a}return e}()({1:[function(e,t){var r=e("github-calendar-parser"),n=e("elly"),a=e("add-subtract-date"),o=e("formatoid"),s="MMM D, YYYY",u="MMMM D";t.exports=function(e,t,i){e=n(e),i=i||{},i.summary_text=i.summary_text||'Summary of pull requests, issues opened, and commits made by <a href="https://github.com/'+t+'" target="blank">@'+t+"</a>",i.responsive===!0&&e.classList.add("calendar-responsive"),i.global_stats===!1&&(e.style.minHeight="175px"),i.proxy=i.proxy||function(e){return"https://urlreq.appspot.com/req?method=GET&url="+e};var c=function l(){return fetch(i.proxy("https://github.com/"+t)).then(function(e){return e.text()}).then(function(t){var c=document.createElement("div");c.innerHTML=t;var d=c.querySelector(".js-yearly-contributions");if(n(".position-relative h2",d).remove(),d.querySelector(".float-left.text-gray").innerHTML=i.summary_text,d.querySelector("include-fragment"))setTimeout(l,500);else{if(i.responsive===!0){var f=d.querySelector("svg.js-calendar-graph-svg"),p=f.getAttribute("width"),b=f.getAttribute("height");f.removeAttribute("height"),f.setAttribute("width","100%"),f.setAttribute("viewBox","0 0 "+p+" "+b)}if(i.global_stats!==!1){var m=r(n("svg",d).outerHTML),g=m.current_streak?o(m.current_streak_range[0],u)+" &ndash; "+o(m.current_streak_range[1],u):m.last_contributed?"Last contributed in "+o(m.last_contributed,u)+".":"Rock - Hard Place",h=m.longest_streak?o(m.longest_streak_range[0],u)+" &ndash; "+o(m.longest_streak_range[1],u):m.last_contributed?"Last contributed in "+o(m.last_contributed,u)+".":"Rock - Hard Place",y=n("<div>",{"class":"contrib-column contrib-column-first table-column",html:'<span class="text-muted">Contributions in the last year</span>\n                               <span class="contrib-number">'+m.last_year+' total</span>\n                               <span class="text-muted">'+o(a.subtract(new Date,1,"year"),s)+" &ndash; "+o(new Date,s)+"</span>"}),v=n("<div>",{"class":"contrib-column table-column",html:'<span class="text-muted">Longest streak</span>\n                               <span class="contrib-number">'+m.longest_streak+' days</span>\n                               <span class="text-muted">'+h+"</span>"}),M=n("<div>",{"class":"contrib-column table-column",html:'<span class="text-muted">Current streak</span>\n                               <span class="contrib-number">'+m.current_streak+' days</span>\n                               <span class="text-muted">'+g+"</span>"});d.appendChild(y),d.appendChild(v),d.appendChild(M)}e.innerHTML=d.innerHTML}})["catch"](function(e){return console.error(e)})};return c()}},{"add-subtract-date":2,elly:4,formatoid:6,"github-calendar-parser":8}],2:[function(e,t){function r(e){return function t(r,n,a){switch(n=e*n,a){case"years":case"year":r.setFullYear(r.getFullYear()+n);break;case"months":case"month":r.setMonth(r.getMonth()+n);break;case"weeks":case"week":return t(r,7*n,"days");case"days":case"day":r.setDate(r.getDate()+n);break;case"hours":case"hour":r.setHours(r.getHours()+n);break;case"minutes":case"minute":r.setMinutes(r.getMinutes()+n);break;case"seconds":case"second":r.setSeconds(r.getSeconds()+n);break;case"milliseconds":case"millisecond":r.setMilliseconds(r.getMilliseconds()+n);break;default:throw new Error("Invalid range: "+a)}return r}}t.exports={add:r(1),subtract:r(-1)}},{}],3:[function(e,t){t.exports.en=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],t.exports.en.abbr=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],t.exports.en["short"]=["Su","Mo","Tu","We","Th","Fr","Sa"],t.exports.fr=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"],t.exports.fr.abbr=["dim","lun","mar","mer","jeu","ven","sam"],t.exports.fr["short"]=["di","lu","ma","me","je","ve","sa"],t.exports.es=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"],t.exports.es.abbr=["dom","lun","mar","mir","jue","vie","sab"],t.exports.es["short"]=["do","lu","ma","mi","ju","vi","sa"],t.exports.it=["Domenica","Lunedi","Martedi","Mercoledi","Giovedi","Venerdi","Sabato"],t.exports.it.abbr=["Dom","Lun","Mar","Mer","Gio","Ven","Sab"],t.exports.it["short"]=["D","L","Ma","Me","G","V","S"],t.exports=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],t.exports.abbr=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],t.exports["short"]=["Su","Mo","Tu","We","Th","Fr","Sa"]},{}],4:[function(e,t){function r(e,t){return"string"==typeof e?"<"===e.charAt(0)?(e=document.createElement(e.slice(1,-1)),n(t||{},function(t,r){switch(r){case"text":return void(e.textContent=t);case"html":return void(e.innerHTML=t)}e.setAttribute(r,t)}),e):(t=t||document,t.querySelector(e)):e}var n=e("iterate-object"),a=e("sliced");r.$$=function(e,t){return"string"==typeof e?(t=t||document,a(t.querySelectorAll(e))):[e]},t.exports=r},{"iterate-object":9,sliced:13}],5:[function(e,t){t.exports=function(e,t,r){t=t||2,r=r||"0",e=e.toString();var n=t-e.length;return(0>=n?"":r.repeat(n))+e}},{}],6:[function(e,t){var r=e("months"),n=e("days"),a=e("fillo"),o=e("parse-it").Parser,s={YYYY:function(e,t){return t?e.getUTCFullYear():e.getFullYear()},YY:function(e,t){return s.YYYY(e,t)%100},MMMM:function(e,t){return t?r[e.getUTCMonth()]:r[e.getMonth()]},MMM:function(e,t){return t?r.abbr[e.getUTCMonth()]:r.abbr[e.getMonth()]},MM:function(e,t){return a(t?e.getUTCMonth()+1:e.getMonth()+1)},M:function(e,t){return t?e.getUTCMonth()+1:e.getMonth()+1},dddd:function(e,t){return n[s.d(e,t)]},ddd:function(e,t){return n.abbr[s.d(e,t)]},dd:function(e,t){return n["short"][s.d(e,t)]},d:function(e,t){return t?e.getUTCDay():e.getDay()},DD:function(e,t){return a(s.D(e,t))},D:function(e,t){return t?e.getUTCDate():e.getDate()},A:function(e,t){return s.a(e,t).toUpperCase()},a:function(e,t){return s.H(e,t)>=12?"pm":"am"},hh:function(e,t){return a(s.h(e,t))},h:function(e,t){return s.H(e,t)%12||12},HH:function(e,t){return a(s.H(e,t))},H:function(e,t){return t?e.getUTCHours():e.getHours()},mm:function(e,t){return a(s.m(e,t))},m:function(e,t){return t?e.getUTCMinutes():e.getMinutes()},ss:function(e,t){return a(s.s(e,t))},s:function(e,t){return t?e.getUTCSeconds():e.getSeconds()},S:function(e,t){return Math.round(s.s(e,t)/60*10)},SS:function(e,t){return a(s.s(e,t)/60*100)},SSS:function(e,t){return a(s.s(e,t)/60*1e3,3)},Z:function(e){var t=-e.getTimezoneOffset();return(t>=0?"+":"-")+a(parseInt(t/60))+":"+a(t%60)},ZZ:function(e){var t=-e.getTimezoneOffset();return(t>=0?"+":"-")+a(parseInt(t/60))+a(t%60)}},u=new o(s);t.exports=function(e,t){return u.run(t,[e,e._useUTC])}},{days:3,fillo:5,months:10,"parse-it":11}],7:[function(e,t){t.exports=["#eee","#d6e685","#8cc665","#44a340","#1e6823"]},{}],8:[function(e,t){var r=e("github-calendar-legend");t.exports=function(e){var t={last_year:0,longest_streak:-1,longest_streak_range:[],current_streak:0,current_streak_range:[],weeks:[],days:[],last_contributed:null},n=[],a=function(){t.current_streak>t.longest_streak&&(t.longest_streak=t.current_streak,t.longest_streak_range[0]=t.current_streak_range[0],t.longest_streak_range[1]=t.current_streak_range[1])};return e.split("\n").slice(2).map(function(e){return e.trim()}).forEach(function(e){if(e.startsWith("<g transform"))return n.length&&t.weeks.push(n)&&(n=[]);var o=e.match(/fill="(#[a-z0-9]+)"/),s=e.match(/data-date="([0-9\-]+)"/),u=e.match(/data-count="([0-9]+)"/);if(o=o&&o[1],s=s&&s[1],u=u&&+u[1],o){var i={fill:o,date:new Date(s),count:u,level:r.indexOf(o)};0===t.current_streak&&(t.current_streak_range[0]=i.date),i.count?(++t.current_streak,t.last_year+=i.count,t.last_contributed=i.date,t.current_streak_range[1]=i.date):(a(),t.current_streak=0),n.push(i),t.days.push(i)}}),a(),t}},{"github-calendar-legend":7}],9:[function(e,t){function r(e,t){var r=0,n=[];if(Array.isArray(e))for(;r<e.length&&t(e[r],r,e)!==!1;++r);else if("object"===("undefined"==typeof e?"undefined":_typeof(e))&&null!==e)for(n=Object.keys(e);r<n.length&&t(e[n[r]],n[r],e)!==!1;++r);}t.exports=r},{}],10:[function(e,t){t.exports=["January","February","March","April","May","June","July","August","September","October","November","December"],t.exports.abbr=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],t.exports.it=["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"],t.exports.abbr.it=["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"],t.exports.de=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],t.exports.abbr.de=["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"]},{}],11:[function(e,t){function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function n(e,t,r){return new s(t).run(e,r)}var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),o=e("regex-escape"),s=function(){function e(t){r(this,e),this.obj=t||{},this.re=new RegExp("^("+Object.keys(t).map(o).join("|")+")")}return a(e,[{key:"run",value:function(e,t){var r="";t=t||[];do{var n=e.match(this.re),a=n&&n[1],o=a||e.charAt(0);if(a){var s=this.obj[a];"function"==typeof s&&(s=s.apply(this,t)),r+=s}else r+=o;e=e.substring(o.length)}while(e);return r}}]),e}();n.Parser=s,t.exports=n},{"regex-escape":12}],12:[function(e,t){function r(e){return e.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,"\\$&")}r.proto=function(){return RegExp.escape=r,r},t.exports=r},{}],13:[function(e,t){t.exports=function(e,t,r){var n=[],a=e.length;if(0===a)return n;var o=0>t?Math.max(0,t+a):t||0;for(void 0!==r&&(a=0>r?r+a:r);a-->o;)n[a-o]=e[a];return n}},{}]},{},[1])(1)});
+"use strict";
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+(function (f) {
+    if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object" && typeof module !== "undefined") {
+        module.exports = f();
+    } else if (typeof define === "function" && define.amd) {
+        define([], f);
+    } else {
+        var g;if (typeof window !== "undefined") {
+            g = window;
+        } else if (typeof global !== "undefined") {
+            g = global;
+        } else if (typeof self !== "undefined") {
+            g = self;
+        } else {
+            g = this;
+        }g.Executor = f();
+    }
+})(function () {
+    var define, module, exports;return function () {
+        function r(e, n, t) {
+            function o(i, f) {
+                if (!n[i]) {
+                    if (!e[i]) {
+                        var c = "function" == typeof require && require;if (!f && c) return c(i, !0);if (u) return u(i, !0);var a = new Error("Cannot find module '" + i + "'");throw a.code = "MODULE_NOT_FOUND", a;
+                    }var p = n[i] = { exports: {} };e[i][0].call(p.exports, function (r) {
+                        var n = e[i][1][r];return o(n || r);
+                    }, p, p.exports, r, e, n, t);
+                }return n[i].exports;
+            }for (var u = "function" == typeof require && require, i = 0; i < t.length; i++) {
+                o(t[i]);
+            }return o;
+        }return r;
+    }()({ 1: [function (require, module, exports) {
+            "use strict";
 
+            var parse = require("github-calendar-parser"),
+                $ = require("elly"),
+                addSubtractDate = require("add-subtract-date"),
+                formatoid = require("formatoid");
 
-// location.reload();
+            var DATE_FORMAT1 = "MMM D, YYYY",
+                DATE_FORMAT2 = "MMMM D";
 
-const target = "pv-deferred-area";
+            /**
+             * GitHubCalendar
+             * Brings the contributions calendar from GitHub (provided username) into your page.
+             *
+             * @name GitHubCalendar
+             * @function
+             * @param {String|HTMLElement} container The calendar container (query selector or the element itself).
+             * @param {String} username The GitHub username.
+             * @param {Object} options An object containing the following fields:
+             *
+             *    - `summary_text` (String): The text that appears under the calendar (defaults to: `"Summary of
+             *      pull requests, issues opened, and commits made by <username>"`).
+             *    - `proxy` (Function): A function that receives as argument an url (string) and should return the proxied url.
+             *      The default is using [@izuzak](https://github.com/izuzak)'s [`urlreq`](https://github.com/izuzak/urlreq).
+             *    - `global_stats` (Boolean): If `false`, the global stats (total, longest and current streaks) will not be calculated and displayed. By default this is enabled.
+             *    - `responsive` (Boolean): If `true`, the graph is changed to scale with the container. Custom CSS should be applied to the element to scale it appropriately. By default this is disabled.
+             *
+             * @return {Promise} A promise returned by the `fetch()` call.
+             */
+            module.exports = function GitHubCalendar(container, username, options) {
 
-console.log("setting target div....");
-let container = document.getElementsByClassName(target)[0];
-console.log("target container ", container);
+                container = $(container);
 
+                options = options || {};
+                options.summary_text = options.summary_text || "Summary of pull requests, issues opened, and commits made by <a href=\"https://github.com/" + username + "\" target=\"blank\">@" + username + "</a>";
 
-// taking the input username from the user
+                if (options.global_stats === false) {
+                    container.style.minHeight = "175px";
+                }
 
-function fetchingUsername()
-{
-    console.log("fetchingUsername called....");
-    return new Promise((resolve, reject) => {
-        // const srcDivId = "#oc-about-section>section:nth-child(0)>p:nth-child(0)>span:nth-child(0)";
-        const srcDivId = "#oc-about-section>section>p>span";
-        let srcDiv = document.querySelector(srcDivId);
-        console.log("srcDiv...", srcDiv);
-        let targetString = srcDiv.innerHTML;
-        console.log("target string...", targetString);
-        let checkArray = targetString.split("@");
-        if(checkArray[0] == "github")
-        {
-            resolve(checkArray[1]);
-        }
-        else{
-            reject(new Error("Username not initialized on Profile"));
-        }
-    });
-}
+                // We need a proxy for CORS
+                // Thanks, @izuzak (https://github.com/izuzak/urlreq)
+                options.proxy = options.proxy || function (url) {
+                    return "https://urlreq.appspot.com/req?method=GET&url=" + url;
+                };
 
+                var fetchCalendar = function fetchCalendar() {
+                    return fetch(options.proxy("https://github.com/" + username)).then(function (response) {
+                        return response.text();
+                    }).then(function (body) {
+                        var div = document.createElement("div");
+                        div.innerHTML = body;
+                        var cal = div.querySelector(".js-yearly-contributions");
+                        $(".position-relative h2", cal).remove();
+                        cal.querySelector(".float-left.text-gray").innerHTML = options.summary_text;
 
+                        // If 'include-fragment' with spinner img loads instead of the svg, fetchCalendar again
+                        if (cal.querySelector("include-fragment")) {
+                            setTimeout(fetchCalendar, 500);
+                        } else {
+                            // If options includes responsive, SVG element has to be manipulated to be made responsive
+                            if (options.responsive === true) {
+                                var svg = cal.querySelector("svg.js-calendar-graph-svg");
+                                // Get the width/height properties and use them to create the viewBox
+                                var width = svg.getAttribute("width");
+                                var height = svg.getAttribute("height");
+                                // Remove height property entirely
+                                svg.removeAttribute("height");
+                                // Width property should be set to 100% to fill entire container
+                                svg.setAttribute("width", "100%");
+                                // Add a viewBox property based on the former width/height
+                                svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+                            }
 
-console.log("setting options....");
-const optionsInput = {
-    global_stats: true,
-    responsive : true
-};
+                            if (options.global_stats !== false) {
+                                var parsed = parse($("svg", cal).outerHTML),
+                                    currentStreakInfo = parsed.current_streak ? formatoid(parsed.current_streak_range[0], DATE_FORMAT2) + " &ndash; " + formatoid(parsed.current_streak_range[1], DATE_FORMAT2) : parsed.last_contributed ? "Last contributed in " + formatoid(parsed.last_contributed, DATE_FORMAT2) + "." : "Rock - Hard Place",
+                                    longestStreakInfo = parsed.longest_streak ? formatoid(parsed.longest_streak_range[0], DATE_FORMAT2) + " &ndash; " + formatoid(parsed.longest_streak_range[1], DATE_FORMAT2) : parsed.last_contributed ? "Last contributed in " + formatoid(parsed.last_contributed, DATE_FORMAT2) + "." : "Rock - Hard Place",
+                                    firstCol = $("<div>", {
+                                    "class": "contrib-column contrib-column-first table-column",
+                                    html: "<span class=\"text-muted\">Contributions in the last year</span>\n                               <span class=\"contrib-number\">" + parsed.last_year + " total</span>\n                               <span class=\"text-muted\">" + formatoid(addSubtractDate.subtract(new Date(), 1, "year"), DATE_FORMAT1) + " &ndash; " + formatoid(new Date(), DATE_FORMAT1) + "</span>"
+                                }),
+                                    secondCol = $("<div>", {
+                                    "class": "contrib-column table-column",
+                                    html: "<span class=\"text-muted\">Longest streak</span>\n                               <span class=\"contrib-number\">" + parsed.longest_streak + " days</span>\n                               <span class=\"text-muted\">" + longestStreakInfo + "</span>"
+                                }),
+                                    thirdCol = $("<div>", {
+                                    "class": "contrib-column table-column",
+                                    html: "<span class=\"text-muted\">Current streak</span>\n                               <span class=\"contrib-number\">" + parsed.current_streak + " days</span>\n                               <span class=\"text-muted\">" + currentStreakInfo + "</span>"
+                                });
 
-console.log("options: ", optionsInput);
+                                cal.appendChild(firstCol);
+                                cal.appendChild(secondCol);
+                                cal.appendChild(thirdCol);
+                            }
 
-console.log("setting calenderDiv....");
-let calenderDiv = document.createElement("div");
+                            container.innerHTML = cal.innerHTML;
+                        }
+                    }).catch(function (e) {
+                        return console.error(e);
+                    });
+                };
 
-let username = null;
+                return fetchCalendar();
+            };
+        }, { "add-subtract-date": 3, "elly": 5, "formatoid": 7, "github-calendar-parser": 9 }], 2: [function (require, module, exports) {
+            var GitHubCalendar = require('./index.js');
 
-function waitingforEmberJS (){
-    console.log("callR");
-    fetchingUsername()
-    .then((name) => { 
-        console.log("Success in fetching the Username");
-        console.log("setting username....");
-        username = name; 
-        console.log("username: ", username);
-        console.log("GitHubCalender called....");
-        GitHubCalendar(calenderDiv, username, optionsInput);
+            module.exports = function Executor() {
+                var target = "pv-deferred-area";
 
-        console.log("calenderDiv", calenderDiv);
-        container.classList.add("calender");
-        console.log("appending the calenderdiv....");
-        container.appendChild(calenderDiv);
-    })
-    .catch((err) => console.log(err));
-};
+                console.log("setting target div....");
+                var container = document.getElementsByClassName(target)[0];
+                console.log("target container ", container);
 
-setTimeout(waitingforEmberJS, 2000);
+                // taking the input username from the user
 
+                function fetchingUsername() {
+                    console.log("fetchingUsername called....");
+                    return new Promise(function (resolve, reject) {
+                        // const srcDivId = "#oc-about-section>section:nth-child(0)>p:nth-child(0)>span:nth-child(0)";
+                        var srcDivId = "#oc-about-section>section>p>span";
+                        var srcDiv = document.querySelector(srcDivId);
+                        console.log("srcDiv...", srcDiv);
+                        var targetString = srcDiv.innerHTML;
+                        console.log("target string...", targetString);
+                        var checkArray = targetString.split("@");
+                        if (checkArray[0] == "github") {
+                            resolve(checkArray[1]);
+                        } else {
+                            reject(new Error("Username not initialized on Profile"));
+                        }
+                    });
+                }
 
+                console.log("setting options....");
+                var optionsInput = {
+                    global_stats: true,
+                    responsive: true
+                };
 
+                console.log("options: ", optionsInput);
 
+                console.log("setting calenderDiv....");
+                var calenderDiv = document.createElement("div");
 
+                var username = null;
 
+                function waitingforEmberJS() {
+                    console.log("callR");
+                    fetchingUsername().then(function (name) {
+                        console.log("Success in fetching the Username");
+                        console.log("setting username....");
+                        username = name;
+                        console.log("username: ", username);
+                        console.log("GitHubCalender called....");
+                        module.exports.GitHubCalendar(calenderDiv, username, optionsInput);
 
+                        console.log("calenderDiv", calenderDiv);
+                        container.classList.add("calender");
+                        console.log("appending the calenderdiv....");
+                        container.appendChild(calenderDiv);
+                    }).catch(function (err) {
+                        return console.log(err);
+                    });
+                };
 
+                setTimeout(waitingforEmberJS, 2000);
+            };
+        }, { "./index.js": 1 }], 3: [function (require, module, exports) {
+            "use strict";
 
+            function gen(add) {
+                return function _(d, count, what) {
+                    count = add * count;
+                    switch (what) {
+                        case "years":
+                        case "year":
+                            d.setFullYear(d.getFullYear() + count);
+                            break;
+                        case "months":
+                        case "month":
+                            d.setMonth(d.getMonth() + count);
+                            break;
+                        case "weeks":
+                        case "week":
+                            return _(d, count * 7, "days");
+                            break;
+                        case "days":
+                        case "day":
+                            d.setDate(d.getDate() + count);
+                            break;
+                        case "hours":
+                        case "hour":
+                            d.setHours(d.getHours() + count);
+                            break;
+                        case "minutes":
+                        case "minute":
+                            d.setMinutes(d.getMinutes() + count);
+                            break;
+                        case "seconds":
+                        case "second":
+                            d.setSeconds(d.getSeconds() + count);
+                            break;
+                        case "milliseconds":
+                        case "millisecond":
+                            d.setMilliseconds(d.getMilliseconds() + count);
+                            break;
+                        default:
+                            throw new Error("Invalid range: " + what);
+                    }
+                    return d;
+                };
+            }
 
+            module.exports = {
+                add: gen(1),
+                subtract: gen(-1)
+            };
+        }, {}], 4: [function (require, module, exports) {
+            /*!
+             * days <https://github.com/jonschlinkert/days>
+             *
+             * Copyright (c) 2014-2017, Jon Schlinkert.
+             * Released under the MIT License.
+             */
+
+            // English
+            module.exports.en = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            module.exports.en.abbr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            module.exports.en.short = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+            // French translation
+            module.exports.fr = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+            module.exports.fr.abbr = ['dim', 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam'];
+            module.exports.fr.short = ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'];
+
+            // Spanish translation
+            module.exports.es = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+            module.exports.es.abbr = ['dom', 'lun', 'mar', 'mir', 'jue', 'vie', 'sab'];
+            module.exports.es.short = ['do', 'lu', 'ma', 'mi', 'ju', 'vi', 'sa'];
+
+            // Italian translation
+            module.exports.it = ['Domenica', 'Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato'];
+            module.exports.it.abbr = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+            module.exports.it.short = ['D', 'L', 'Ma', 'Me', 'G', 'V', 'S'];
+
+            // In order not to break compatibility
+            module.exports = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            module.exports.abbr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            module.exports.short = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+        }, {}], 5: [function (require, module, exports) {
+            "use strict";
+
+            var iterateObj = require("iterate-object"),
+                sliced = require("sliced");
+
+            /**
+             * elly
+             * Selects the DOM elements based on the provided selector. If there is no
+             * commonjs/module environment, the `$` global variable will be created.
+             *
+             * @name elly
+             * @function
+             * @param {String|HTMLElement} input The element selector (e.g.
+             * `'#my-id > .my-class'`), the element tag you want to create
+             * (e.g. `'<ul>'`) or the HTML element (will be returned by the function).
+             * @param {Object|HTMLElement} contextOrAttributes
+             * @returns {HTMLElement} The HTMLElement that was provided or selected.
+             */
+            function $(input, contextOrAttributes) {
+                if (typeof input === "string") {
+                    if (input.charAt(0) === "<") {
+                        input = document.createElement(input.slice(1, -1));
+                        iterateObj(contextOrAttributes || {}, function (value, name) {
+
+                            switch (name) {
+                                case "text":
+                                    input.textContent = value;
+                                    return;
+                                case "html":
+                                    input.innerHTML = value;
+                                    return;
+                            }
+
+                            input.setAttribute(name, value);
+                        });
+                        return input;
+                    } else {
+                        contextOrAttributes = contextOrAttributes || document;
+                        return contextOrAttributes.querySelector(input);
+                    }
+                }
+                return input;
+            };
+
+            /**
+             * elly.$$
+             * Selects multiple elements. Note that if there is no commonjs/module environment, you will access this function using `$.$$`.
+             *
+             * @name elly.$$
+             * @function
+             * @param {String} selector The DOM query selector.
+             * @param {HTMLElement} context The element context/container. Defaults to `document`.
+             * @returns {Array} The array of elements.
+             */
+            $.$$ = function (selector, context) {
+                if (typeof selector === "string") {
+                    context = context || document;
+                    return sliced(context.querySelectorAll(selector));
+                }
+                return [selector];
+            };
+
+            module.exports = $;
+        }, { "iterate-object": 10, "sliced": 14 }], 6: [function (require, module, exports) {
+            "use strict";
+
+            /**
+             * fillo
+             * Fill additional characters at the beginning of the string.
+             *
+             * @name fillo
+             * @function
+             * @param {String|Number} what The input snippet (number, string or anything that can be stringified).
+             * @param {Number} size The width of the final string (default: `2`).
+             * @param {String} ch The character to repeat (default: `"0"`).
+             * @return {String} The input value with filled characters.
+             */
+
+            module.exports = function fillo(what, size, ch) {
+                size = size || 2;
+                ch = ch || "0";
+                what = what.toString();
+                var howMany = size - what.length;
+                return (howMany <= 0 ? "" : ch.repeat(howMany)) + what;
+            };
+        }, {}], 7: [function (require, module, exports) {
+            "use strict";
+
+            var months = require("months"),
+                days = require("days"),
+                fillo = require("fillo"),
+                ParseIt = require("parse-it").Parser;
+
+            var rules = {
+                // Years
+                /// 2015
+                YYYY: function YYYY(i, utc) {
+                    if (utc) {
+                        return i.getUTCFullYear();
+                    }
+                    return i.getFullYear();
+                }
+
+                // 15
+
+                , YY: function YY(i, utc) {
+                    return rules.YYYY(i, utc) % 100;
+                }
+
+                // Months
+                // January
+
+                , MMMM: function MMMM(i, utc) {
+                    if (utc) {
+                        return months[i.getUTCMonth()];
+                    }
+                    return months[i.getMonth()];
+                }
+
+                // Jan
+
+                , MMM: function MMM(i, utc) {
+                    if (utc) {
+                        return months.abbr[i.getUTCMonth()];
+                    }
+                    return months.abbr[i.getMonth()];
+                }
+
+                // 01
+
+                , MM: function MM(i, utc) {
+                    if (utc) {
+                        return fillo(i.getUTCMonth() + 1);
+                    }
+                    return fillo(i.getMonth() + 1);
+                }
+
+                // 1
+
+                , M: function M(i, utc) {
+                    if (utc) {
+                        return i.getUTCMonth() + 1;
+                    }
+                    return i.getMonth() + 1;
+                }
+
+                // Days
+                // Sunday
+
+                , dddd: function dddd(i, utc) {
+                    return days[rules.d(i, utc)];
+                }
+
+                // Sun
+
+                , ddd: function ddd(i, utc) {
+                    return days.abbr[rules.d(i, utc)];
+                }
+
+                // Su
+
+                , dd: function dd(i, utc) {
+                    return days.short[rules.d(i, utc)];
+                }
+
+                // 0
+
+                , d: function d(i, utc) {
+                    if (utc) {
+                        return i.getUTCDay();
+                    }
+                    return i.getDay();
+                }
+
+                // Dates
+                // 06  Day in month
+
+                , DD: function DD(i, utc) {
+                    return fillo(rules.D(i, utc));
+                }
+
+                // 6   Day in month
+
+                , D: function D(i, utc) {
+                    if (utc) {
+                        return i.getUTCDate();
+                    }
+                    return i.getDate();
+                }
+
+                // AM/PM
+                // AM/PM
+
+                , A: function A(i, utc) {
+                    return rules.a(i, utc).toUpperCase();
+                }
+
+                // am/pm
+
+                , a: function a(i, utc) {
+                    return rules.H(i, utc) >= 12 ? "pm" : "am";
+                }
+
+                // Hours
+                // 08 Hour
+
+                , hh: function hh(i, utc) {
+                    return fillo(rules.h(i, utc));
+                }
+
+                // 8 Hour
+
+                , h: function h(i, utc) {
+                    return rules.H(i, utc) % 12 || 12;
+                }
+
+                // (alias)
+
+                , HH: function HH(i, utc) {
+                    return fillo(rules.H(i, utc));
+                }
+
+                // (alias)
+
+                , H: function H(i, utc) {
+                    if (utc) {
+                        return i.getUTCHours();
+                    }
+                    return i.getHours();
+                }
+
+                // Minutes
+                // 09 Minute
+
+                , mm: function mm(i, utc) {
+                    return fillo(rules.m(i, utc));
+                }
+
+                // 9  Minute
+
+                , m: function m(i, utc) {
+                    if (utc) {
+                        return i.getUTCMinutes();
+                    }
+                    return i.getMinutes();
+                }
+
+                // Seconds
+                // 09 Seconds
+
+                , ss: function ss(i, utc) {
+                    return fillo(rules.s(i, utc));
+                }
+
+                // 9  Seconds
+
+                , s: function s(i, utc) {
+                    if (utc) {
+                        return i.getUTCSeconds();
+                    }
+                    return i.getSeconds();
+                }
+
+                // Fractional seconds
+                // 0 1 ... 8 9
+
+                , S: function S(i, utc) {
+                    return Math.round(rules.s(i, utc) / 60 * 10);
+                },
+                SS: function SS(i, utc) {
+                    return fillo(rules.s(i, utc) / 60 * 100);
+                },
+                SSS: function SSS(i, utc) {
+                    return fillo(rules.s(i, utc) / 60 * 1000, 3);
+                }
+
+                // Timezones
+
+                , Z: function Z(i) {
+                    var offset = -i.getTimezoneOffset();
+                    return (offset >= 0 ? "+" : "-") + fillo(parseInt(offset / 60)) + ":" + fillo(offset % 60);
+                },
+                ZZ: function ZZ(i) {
+                    var offset = -i.getTimezoneOffset();
+                    return (offset >= 0 ? "+" : "-") + fillo(parseInt(offset / 60)) + fillo(offset % 60);
+                }
+            };
+
+            var parser = new ParseIt(rules);
+
+            /**
+             * formatoid
+             * Formats the date into a given format.
+             *
+             * Usable format fields:
+             *
+             *  - **Years**
+             *      - `YYYY` (e.g. `"2015"`)
+             *      - `YY` (e.g. `"15"`)
+             *  - **Months**
+             *      - `MMMM` (e.g. `"January"`)
+             *      - `MMM` (e.g. `"Jan"`)
+             *      - `MM` (e.g. `"01"`)
+             *      - `M` (e.g. `"1"`)
+             *  - **Days**
+             *      - `dddd` (e.g. `"Sunday"`)
+             *      - `ddd` (e.g. `"Sun"`)
+             *      - `dd` (e.g. `"Su"`)
+             *      - `d` (e.g. `"Su"`)
+             *  - **Dates**
+             *      - `DD` (e.g. `"07"`)
+             *      - `D` (e.g. `"7"`)
+             *  - **AM/PM**
+             *      - `A` (e.g. `"AM"`)
+             *      - `a` (e.g. `"pm"`)
+             *  - **Hours**
+             *      - `hh` (e.g. `"07"`)–12 hour format
+             *      - `h` (e.g. `"7"`)
+             *      - `HH` (e.g. `"07"`)–24 hour format
+             *      - `H` (e.g. `"7"`)
+             *  - **Minutes**
+             *      - `mm` (e.g. `"07"`)
+             *      - `m` (e.g. `"7"`)
+             *  - **Seconds**
+             *      - `ss` (e.g. `"07"`)
+             *      - `s` (e.g. `"7"`)
+             *  - **Fractional seconds**
+             *      - `S` (e.g. `0 1 2 3 ... 9`)
+             *      - `SS` (e.g. `00 01 02 ... 98 99`)
+             *      - `SS` (e.g. `000 001 002 ... 998 999`)
+             *  - **Timezones**
+             *      - `Z` (e.g. `-07:00 -06:00 ... +06:00 +07:00`)
+             *      - `ZZ` (e.g. `-0700 -0600 ... +0600 +0700`)
+             *
+             * @name formatoid
+             * @function
+             * @param {Date} i The date object.
+             * @param {String} f The date format.
+             * @return {String} The formatted date (as string).
+             */
+            module.exports = function formatoid(i, f) {
+                return parser.run(f, [i, i._useUTC]);
+            };
+        }, { "days": 4, "fillo": 6, "months": 11, "parse-it": 12 }], 8: [function (require, module, exports) {
+            "use strict";
+
+            module.exports = ["#eee", "#d6e685", "#8cc665", "#44a340", "#1e6823"];
+        }, {}], 9: [function (require, module, exports) {
+            "use strict";
+
+            var githubCalendarLegend = require("github-calendar-legend");
+
+            /**
+             * parseGitHubCalendarSvg
+             * Parses the SVG input (as string).
+             *
+             * @name parseGitHubCalendarSvg
+             * @function
+             * @param {String} input The SVG code of the contributions calendar.
+             * @return {Object} An object containing:
+             *
+             *  - `last_year` (Number): The total contributions in the last year.
+             *  - `longest_streak` (Number): The longest streak.
+             *  - `longest_streak_range` (Array): An array of two date objects representing the date range.
+             *  - `current_streak` (Number): The current streak.
+             *  - `current_streak_range` (Array): An array of two date objects representing the date range.
+             *  - `days` (Array): An array of day objects:
+             *       - `fill` (String): The hex color.
+             *       - `date` (Date): The day date.
+             *       - `count` (Number): The number of commits.
+             *       - `level` (Number): A number between 0 and 4 (inclusive) representing the contribution level (more commits, higher value).
+             *  - `weeks` (Array): The day objects grouped by weeks (arrays).
+             *  - `last_contributed` (Date): The last contribution date.
+             */
+            module.exports = function parseGitHubCalendarSvg(input) {
+
+                var data = {
+                    last_year: 0,
+                    longest_streak: -1,
+                    longest_streak_range: [],
+                    current_streak: 0,
+                    current_streak_range: [],
+                    weeks: [],
+                    days: [],
+                    last_contributed: null
+                },
+                    lastWeek = [],
+                    updateLongestStreak = function updateLongestStreak() {
+                    if (data.current_streak > data.longest_streak) {
+                        data.longest_streak = data.current_streak;
+                        data.longest_streak_range[0] = data.current_streak_range[0];
+                        data.longest_streak_range[1] = data.current_streak_range[1];
+                    }
+                };
+
+                input.split("\n").slice(2).map(function (c) {
+                    return c.trim();
+                }).forEach(function (c) {
+                    if (c.startsWith("<g transform")) {
+                        return lastWeek.length && data.weeks.push(lastWeek) && (lastWeek = []);
+                    }
+
+                    var fill = c.match(/fill="(#[a-z0-9]+)"/),
+                        date = c.match(/data-date="([0-9\-]+)"/),
+                        count = c.match(/data-count="([0-9]+)"/),
+                        level = null;
+
+                    fill = fill && fill[1];
+                    date = date && date[1];
+                    count = count && +count[1];
+
+                    if (!fill) {
+                        return;
+                    }
+
+                    var obj = {
+                        fill: fill,
+                        date: new Date(date),
+                        count: count,
+                        level: githubCalendarLegend.indexOf(fill)
+                    };
+
+                    if (data.current_streak === 0) {
+                        data.current_streak_range[0] = obj.date;
+                    }
+
+                    if (obj.count) {
+                        ++data.current_streak;
+                        data.last_year += obj.count;
+                        data.last_contributed = obj.date;
+                        data.current_streak_range[1] = obj.date;
+                    } else {
+                        updateLongestStreak();
+                        data.current_streak = 0;
+                    }
+
+                    lastWeek.push(obj);
+                    data.days.push(obj);
+                });
+
+                updateLongestStreak();
+
+                return data;
+            };
+        }, { "github-calendar-legend": 8 }], 10: [function (require, module, exports) {
+            /**
+             * iterateObject
+             * Iterates an object. Note the object field order may differ.
+             *
+             * @name iterateObject
+             * @function
+             * @param {Object} obj The input object.
+             * @param {Function} fn A function that will be called with the current value, field name and provided object.
+             * @return {Function} The `iterateObject` function.
+             */
+            function iterateObject(obj, fn) {
+                var i = 0,
+                    keys = [];
+
+                if (Array.isArray(obj)) {
+                    for (; i < obj.length; ++i) {
+                        if (fn(obj[i], i, obj) === false) {
+                            break;
+                        }
+                    }
+                } else if ((typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" && obj !== null) {
+                    keys = Object.keys(obj);
+                    for (; i < keys.length; ++i) {
+                        if (fn(obj[keys[i]], keys[i], obj) === false) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            module.exports = iterateObject;
+        }, {}], 11: [function (require, module, exports) {
+            /*!
+             * months <https://github.com/datetime/months>
+             *
+             * Copyright (c) 2014-2017, Jon Schlinkert.
+             * Released under the MIT License.
+             */
+
+            // English Translation
+            module.exports = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            module.exports.abbr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            // Italian Translation
+            module.exports.it = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+            module.exports.abbr.it = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+
+            // German Translation
+            module.exports.de = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+            module.exports.abbr.de = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+        }, {}], 12: [function (require, module, exports) {
+            "use strict";
+
+            var _createClass = function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+                };
+            }();
+
+            function _classCallCheck(instance, Constructor) {
+                if (!(instance instanceof Constructor)) {
+                    throw new TypeError("Cannot call a class as a function");
+                }
+            }
+
+            var regexEscape = require("regex-escape");
+
+            var ParseIt = function () {
+                /**
+                 * ParseIt
+                 * The `ParseIt` class. It can be used to use the same data object but with different formats/arguments.
+                 *
+                 * @name ParseIt
+                 * @function
+                 * @param {Object} obj An object containing the fields to replace.
+                 */
+                function ParseIt(obj) {
+                    _classCallCheck(this, ParseIt);
+
+                    this.obj = obj || {};
+                    this.re = new RegExp("^(" + Object.keys(obj).map(regexEscape).join("|") + ")");
+                }
+
+                /**
+                 * run
+                 * Replaces the fields in the format string with data coming from the data object.
+                 *
+                 *
+                 * @name parseIt
+                 * @function
+                 * @param {String} format The format input.
+                 * @param {Array} args An array of arguments to be passed to the replace function (stored in the `obj` object).
+                 * @return {String} The result as string.
+                 */
+
+                _createClass(ParseIt, [{
+                    key: "run",
+                    value: function run(format, args) {
+                        var result = "";
+                        args = args || [];
+                        do {
+                            var arr = format.match(this.re),
+                                field = arr && arr[1],
+                                c = field || format.charAt(0);
+
+                            if (field) {
+                                var value = this.obj[field];
+                                if (typeof value === "function") {
+                                    value = value.apply(this, args);
+                                }
+                                result += value;
+                            } else {
+                                result += c;
+                            }
+                            format = format.substring(c.length);
+                        } while (format);
+                        return result;
+                    }
+                }]);
+
+                return ParseIt;
+            }();
+
+            /**
+             * parseIt
+             * A wrapper around the `ParseIt` class. The `ParseIt` constructor is accessible using `parseIt.Parser`.
+             *
+             * @name parseIt
+             * @function
+             * @param {String} format The format input.
+             * @param {Object} obj An object containing the fields to replace.
+             * @param {Array} args An array of arguments to be passed to the replace function (stored in the `obj` object).
+             * @return {String} The result as string.
+             */
+
+            function parseIt(format, obj, args) {
+                return new ParseIt(obj).run(format, args);
+            }
+
+            parseIt.Parser = ParseIt;
+
+            module.exports = parseIt;
+        }, { "regex-escape": 13 }], 13: [function (require, module, exports) {
+            "use strict";
+
+            /**
+             * RegexEscape
+             * Escapes a string for using it in a regular expression.
+             *
+             * @name RegexEscape
+             * @function
+             * @param {String} input The string that must be escaped.
+             * @return {String} The escaped string.
+             */
+
+            function RegexEscape(input) {
+                return input.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            }
+
+            /**
+             * proto
+             * Adds the `RegexEscape` function to `RegExp` class.
+             *
+             * @name proto
+             * @function
+             * @return {Function} The `RegexEscape` function.
+             */
+            RegexEscape.proto = function () {
+                RegExp.escape = RegexEscape;
+                return RegexEscape;
+            };
+
+            module.exports = RegexEscape;
+        }, {}], 14: [function (require, module, exports) {
+
+            /**
+             * An Array.prototype.slice.call(arguments) alternative
+             *
+             * @param {Object} args something with a length
+             * @param {Number} slice
+             * @param {Number} sliceEnd
+             * @api public
+             */
+
+            module.exports = function (args, slice, sliceEnd) {
+                var ret = [];
+                var len = args.length;
+
+                if (0 === len) return ret;
+
+                var start = slice < 0 ? Math.max(0, slice + len) : slice || 0;
+
+                if (sliceEnd !== undefined) {
+                    len = sliceEnd < 0 ? sliceEnd + len : sliceEnd;
+                }
+
+                while (len-- > start) {
+                    ret[len - start] = args[len];
+                }
+
+                return ret;
+            };
+        }, {}] }, {}, [2])(2);
+});
