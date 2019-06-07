@@ -59,4 +59,4 @@ Thanks! :heart:
 
 ## :scroll: License
 
-[MIT][license] © [Anshul Garg][website]
+[MIT](license) © [Anshul Garg](https://github.com/garganshul108)
