@@ -59,4 +59,4 @@ Thanks! :heart:
 
 ## :scroll: License
 
-[MIT](license) © [Anshul Garg](https://github.com/garganshul108)
+[MIT](https://github.com/garganshul108/GitHub-Graph-Extension/blob/master/LICENSE) © [Anshul Garg](https://github.com/garganshul108)
