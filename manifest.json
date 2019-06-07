@@ -1,42 +1,40 @@
 {
     "manifest_version": 2,
-    "name" : "GitHub Graph LinkedIn Extension",
-    "version" : "0.0.1",
+    "name": "GitHub Graph LinkedIn Extension",
+    "version": "1.0.1",
 
-    "web_accessible_resources":[
-        "./*.css"
+    "web_accessible_resources": [
+        "./lib/*.css"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
-    "content_scripts": [
-        {
-            "matches": [
-                "https://www.linkedin.com/in/*"
-            ],
+    "content_scripts": [{
+        "matches": [
+            "https://www.linkedin.com/in/*"
+        ],
 
-            "js" : [
-                "foreground.js"
-            ],
-            "css" :[
-                "github-calendar.css",
-                "github-calendar-responsive.css"
-            ]
-        }
-    ],
+        "js": [
+            "./core/foreground.js"
+        ],
+        "css": [
+            "./lib/github-calendar.css",
+            "./lib/github-calendar-responsive.css"
+        ]
+    }],
 
 
-    "background":{
-        "scripts": [ 
-            "background.js"
-         ]
+    "background": {
+        "scripts": [
+            "./core/background.js"
+        ]
     },
 
-    "browser_action":{
-        "default_icon":"./icon.png"
+    "browser_action": {
+        "default_icon": "./utils/icons/icon.png"
     },
 
     "permissions": [
-        "webNavigation", 
+        "webNavigation",
         "*://*/*",
         "https://*/*"
     ]
