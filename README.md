@@ -57,4 +57,6 @@ Thanks! :heart:
 
 
 
+## :scroll: License
 
+[MIT][license] © [Anshul Garg][website]
