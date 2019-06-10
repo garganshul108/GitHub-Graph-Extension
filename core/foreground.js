@@ -406,8 +406,7 @@ console.log("target container ", container);
 
 // taking the input username from the user
 
-function fetchingUsername()
-{
+function fetchingUsername() {
     console.log("fetchingUsername called....");
     return new Promise((resolve, reject) => {
         // const srcDivId = "#oc-about-section>section:nth-child(0)>p:nth-child(0)>span:nth-child(0)";
@@ -417,11 +416,9 @@ function fetchingUsername()
         let targetString = srcDiv.innerHTML;
         console.log("target string...", targetString);
         let checkArray = targetString.split("@");
-        if(checkArray[0] == "github")
-        {
+        if (checkArray[0] == "github") {
             resolve(checkArray[1]);
-        }
-        else{
+        } else {
             reject(new Error("Username not initialized on Profile"));
         }
     });
@@ -432,7 +429,7 @@ function fetchingUsername()
 console.log("setting options....");
 const optionsInput = {
     global_stats: true,
-    responsive : true
+    responsive: true
 };
 
 console.log("options: ", optionsInput);
@@ -442,33 +439,23 @@ let calenderDiv = document.createElement("div");
 
 let username = null;
 
-function waitingforEmberJS (){
+function waitingforEmberJS() {
     console.log("callR");
     fetchingUsername()
-    .then((name) => { 
-        console.log("Success in fetching the Username");
-        console.log("setting username....");
-        username = name; 
-        console.log("username: ", username);
-        console.log("GitHubCalender called....");
-        GitHubCalendar(calenderDiv, username, optionsInput);
+        .then((name) => {
+            console.log("Success in fetching the Username");
+            console.log("setting username....");
+            username = name;
+            console.log("username: ", username);
+            console.log("GitHubCalender called....");
+            GitHubCalendar(calenderDiv, username, optionsInput);
 
-        console.log("calenderDiv", calenderDiv);
-        container.classList.add("calender");
-        console.log("appending the calenderdiv....");
-        container.appendChild(calenderDiv);
-    })
-    .catch((err) => console.log(err));
+            console.log("calenderDiv", calenderDiv);
+            container.classList.add("calendar");
+            console.log("appending the calenderdiv....");
+            container.appendChild(calenderDiv);
+        })
+        .catch((err) => console.log(err));
 };
 
 setTimeout(waitingforEmberJS, 2000);
-
-
-
-
-
-
-
-
-
-
