@@ -17,7 +17,7 @@
 >
 
 ### Your Profile
-![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/AnshulGarg-LinkedIn-GitHubGraph.png)
+![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/master/screenshots/GGAnshulGarg.png)
 ### New Profile
 ![Screenshot](https://raw.github.com/garganshul108/GitHub-Graph-Extension/proto1.0/screenshots/ShubhamDhama-LinkedIn-GitHubGraph.png)
 ### Connection's Profile
