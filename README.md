@@ -46,6 +46,11 @@ example: github@garganshul108
 
 #### NOTE: The extenstion will work for every page you visit, with profile set correctly at the correct location
 
+## :star2: Issues and Contributions
+- Want to contribute and be a part of this small project. Check the simplest contributing guidelines [here](https://github.com/garganshul108/Code-With-Mosh-Playlist-Downloader/blob/master/CONTRIBUTING.md)
+- Contributions don't have to be very special. From 'simple typos' to 'serious bugs' all kinds of contributions are welcome! :smile:
+
+
 Thanks! :heart:
 
 ## :cake: Thanks
